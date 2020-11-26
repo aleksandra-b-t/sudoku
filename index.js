@@ -40,7 +40,23 @@ function startGame() {
 } 
 
 function startTimer(){
-    
+    if (id("time-1").checked) timeRemaining = 180;
+    else if (id("time-2").checked) timeRemaining = 300;
+    else timeRemaining = 600;
+    id("timer").textContent = timeConversion(timeRemaining);
+    timer = setInterval(function() {
+        timeRemaining --;
+        if (timeRemaining === 0) endGame();
+        id("timer").textContent = timeConversion(timeRemaining);
+    }, 1000)
+}
+
+function timeConversion(time){
+    let min = map.floor(tile /60);
+    if (min < 10) min = "0" + min;
+    let sec = time % 60;
+    if (sec < 10) sec = "0" + sec;
+    return min + ":" + sec;
 }
 
 function generateBoard(board) {
