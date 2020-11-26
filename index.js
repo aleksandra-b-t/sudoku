@@ -37,7 +37,21 @@ function generateBoard(board) {
     clearPrevius();
     let idCount = 0;
     for (let i = 0; i < 81; i++) {
-        
+        let tile = document.createElement("p");
+        if (board.charAt(i) != "-") {
+            tile.textContent = board.charAt(i);
+        } else {
+            //add clikck event
+        }
+    tile.id = idCount;
+    idCount ++;
+    tile.classList.add("tile");
+    if ((tile.id > 17 && tile.id < 27) || (tile.id > 44 && tile.id < 54)) {
+        tile,classList.add("bottomBorder");
+    }    
+    if ((tile.id +1) % 9 == 3 || (tile.id + 1) % 9 == 6) {
+        tile.classList.add("rightBorder");
+    }
     }
 }
 
