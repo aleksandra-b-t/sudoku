@@ -23,7 +23,43 @@ window.onload = function() {
 }
 
 function startGame() {
-if
+    let board
+    if (id("diff-1").checked) board = easy[0];
+    else if(id("diff-2").checked) board = medium[0];
+    else board = hard[0];
+    lives = 3;
+    disableSelecte = false;
+    id("lives").textContent = 'Lives Remaning: 3';
+    generateBoard(board);
+} 
+
+function generateBoard(board) {
+    clearPrevius();
+    let idCount = 0;
+    for (let i = 0; i < 81; i++) {
+        
+    }
+}
+
+function clearPrevius() {
+    let tiles = qsa(".tile")
+    for (let i = 0 ; i < tiles.length; i++) {
+        tiles[i].remove();
+    }
+    if (timer) clearTimeout(timer);
+    for (let i = 0; i < id("number-container").children.length; i++) {
+        id("number-container").children[i].classList.remove("selected");
+    }
+    selectedTile = null;
+    selectedNum = null;
+}
+
+function qs(selector) {
+return document.querySelector(selector);
+}
+
+function qsa(selector) {
+    return document.querySelectorAll(selector);
 }
 
 function id(id) {
