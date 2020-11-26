@@ -37,6 +37,7 @@ function startGame() {
     } else {
         qs("body").classList.add("dark");
     }
+    id("number-container").classList.remove("hidden");
 } 
 
 function startTimer(){
@@ -52,11 +53,11 @@ function startTimer(){
 }
 
 function timeConversion(time){
-    let min = map.floor(tile /60);
-    if (min < 10) min = "0" + min;
-    let sec = time % 60;
-    if (sec < 10) sec = "0" + sec;
-    return min + ":" + sec;
+    let minutes = Math.floor(time /60);
+    if (minutes < 10) minutes = "0" + minutes;
+    let seconds = time % 60;
+    if (seconds < 10) seconds = "0" + seconds;
+    return minutes + ":" + seconds;
 }
 
 function generateBoard(board) {
