@@ -15,7 +15,7 @@ var timer;
 var timeRemaining;
 var lives;
 var selectedNum;
-var selectedTitle;
+var selectedTile;
 var disableSelect;
 
 window.onload = function() {
@@ -28,10 +28,20 @@ function startGame() {
     else if(id("diff-2").checked) board = medium[0];
     else board = hard[0];
     lives = 3;
-    disableSelecte = false;
+    disableSelect = false;
     id("lives").textContent = 'Lives Remaning: 3';
     generateBoard(board);
+    startTimer();
+    if (id("theme-1").checked) {
+        qs("body").classList.remove("dark");
+    } else {
+        qs("body").classList.add("dark");
+    }
 } 
+
+function startTimer(){
+    
+}
 
 function generateBoard(board) {
     clearPrevius();
@@ -43,20 +53,21 @@ function generateBoard(board) {
         } else {
             //add clikck event
         }
-    tile.id = idCount;
-    idCount ++;
-    tile.classList.add("tile");
-    if ((tile.id > 17 && tile.id < 27) || (tile.id > 44 && tile.id < 54)) {
-        tile,classList.add("bottomBorder");
-    }    
-    if ((tile.id +1) % 9 == 3 || (tile.id + 1) % 9 == 6) {
-        tile.classList.add("rightBorder");
-    }
+        tile.id = idCount;
+        idCount ++;
+        tile.classList.add("tile");
+        if ((tile.id > 17 && tile.id < 27) || (tile.id > 44 & tile.id < 54)) {
+            tile.classList.add("bottomBorder");
+        }    
+        if ((tile.id +1) % 9 == 3 || (tile.id + 1) % 9 == 6) {
+            tile.classList.add("rightBorder");
+        }
+        id("board").appendChild(tile);
     }
 }
 
 function clearPrevius() {
-    let tiles = qsa(".tile")
+    let tiles = qsa(".tile");
     for (let i = 0 ; i < tiles.length; i++) {
         tiles[i].remove();
     }
@@ -69,7 +80,7 @@ function clearPrevius() {
 }
 
 function qs(selector) {
-return document.querySelector(selector);
+    return document.querySelector(selector);
 }
 
 function qsa(selector) {
