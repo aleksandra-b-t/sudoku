@@ -20,6 +20,23 @@ var disableSelect;
 
 window.onload = function() {
     id("start-btn").addEventListener('click', startGame);
+    for (let i = 0; i < id("number-container").children.length; i++) {
+        id("number-container").children[i].addEventListener("click", function() {
+            if (!disableSelect) {
+                if (this.classList.contains("selected")) {
+                    this.classList.remove("selected");
+                    selectedNum = null;
+                } else {
+                    for (let i = 0; i < 9; i++) {
+                        id("number-container").children[i].classList.remove("selected");
+                    }
+                    this.classList.add("selected");
+                    selectedNum = this;
+                    updateMove();
+                }
+            }
+        });
+    }
 }
 
 function startGame() {
