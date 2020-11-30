@@ -85,7 +85,21 @@ function generateBoard(board) {
         if (board.charAt(i) != "-") {
             tile.textContent = board.charAt(i);
         } else {
-            //add clikck event
+            tile.addEventListener("click", function() {
+                if (!disableSelect) {
+                    if (tile.classList.contains("selected")) {
+                        tile.classList.remove("selected");
+                        selectedTile = null;
+                    } else {
+                        for (let i = 0; i < 81; i ++) {
+                            qsa(".tile")[i].classList.remove("selected");
+                        }
+                        tile.classList.add("selected");
+                        selectedTile = tile;
+                        updateMove();
+                    }
+                }
+            });
         }
         tile.id = idCount;
         idCount ++;
@@ -98,6 +112,46 @@ function generateBoard(board) {
         }
         id("board").appendChild(tile);
     }
+}
+
+function updateMove() {
+    if (selectedTile && selectedNum) {
+        selectedTile.textContent = selectedNum.textContent;
+        if(chceckCorrect(selectedTile)){
+            selectedTile.classList.remove("selected");
+            selectedNum.classList.remove("selected");
+            selectedNum = null;
+            selectedTile = null;
+
+        } else {
+            disableSelect = true;
+            selectedTile.classList.add('incorrect');
+            setTimeout(function() {
+                lives --;
+                if (lives === 0) {
+                    endGame();
+                } else {
+                    id("lives").textContent = "Lives Reamining: " + lives;
+                    disableSelect = false;           
+                }
+                selectedTile.classList.remove("incorrect");
+                selectedTile.classList.remove("selected");
+                selectedNum.classList.remove("selected");
+                selectedTile.textContent = "";
+                selectedTile = null;
+                selectedNum = null;
+            }, 1000)
+        }
+    }
+}
+
+function chceckCorrect(tile) {
+    let solution;
+    if (id("diff-1").checked) solution = easy[1];
+    else if (id("diff-2").checked) solution = medium[1];
+    else solution = hard[1];
+    if (solution.charAt(tile.id) === tile.textContent) return true;
+    else return false;
 }
 
 function clearPrevius() {
