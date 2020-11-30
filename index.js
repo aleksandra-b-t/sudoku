@@ -169,7 +169,7 @@ function chceckCorrect(tile) {
 function chceckDone() {
     let tiles = qsa(".tiles");
     for (let i = 0; i < tiles.length; i++) {
-        if (tile.textContent === "") return false;
+        if (tiles[i].textContent === "") return false;
     }
     return true;
 }
