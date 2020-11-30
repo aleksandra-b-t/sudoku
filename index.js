@@ -122,7 +122,9 @@ function updateMove() {
             selectedNum.classList.remove("selected");
             selectedNum = null;
             selectedTile = null;
-
+            if (chceckDone()) {
+                endGame();
+            }
         } else {
             disableSelect = true;
             selectedTile.classList.add('incorrect');
@@ -145,6 +147,16 @@ function updateMove() {
     }
 }
 
+function endGame() {
+    disableSelect = true;
+    clearTimeout(timer);
+    if (lives === 0 || timeRemaining === 0) {
+        id ("lives").textContent = "You Lost!";
+    } else {
+        id ("lives").textContent = "You Won!";
+    }
+}
+
 function chceckCorrect(tile) {
     let solution;
     if (id("diff-1").checked) solution = easy[1];
@@ -152,6 +164,14 @@ function chceckCorrect(tile) {
     else solution = hard[1];
     if (solution.charAt(tile.id) === tile.textContent) return true;
     else return false;
+}
+
+function chceckDone() {
+    let tiles = qsa(".tiles");
+    for (let i = 0; i < tiles.length; i++) {
+        if (tile.textContent === "") return false;
+    }
+    return true;
 }
 
 function clearPrevius() {
